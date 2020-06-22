@@ -24,10 +24,10 @@ pipeline {
           sh "mvn install"
           sh "skaffold version"
           sh "export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml"
-          sh "echo "this is custom pull request build stage""
+          sh "echo this is custom pull request build stage"
           sh "mvn sonar:sonar -Dsonar.host.url=http://18.210.22.128:9000 -Dsonar.login=b10eff7e52549ebc35913e637475b411d186d469"
           sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
-          sh "echo "this is custom pull request postbuild""
+          sh "echo this is custom pull request postbuild"
           dir('charts/preview') {
             sh "make preview"
             sh "jx preview --app $APP_NAME --dir ../.."
@@ -55,7 +55,7 @@ pipeline {
           sh "skaffold version"
           sh "export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml"
           sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
-          sh "echo "this is custom release build step""
+          sh "echo this is custom release build step"
         }
       }
     }
